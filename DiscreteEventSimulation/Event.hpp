@@ -12,6 +12,9 @@
 #include <stdio.h>
 #include <string>
 #include "Cashier.hpp"
+
+
+enum type {Arrive, Servicing, Finishing, Queuing};
 class Event {
 public:
     long arrivalTime = 0;
@@ -26,20 +29,24 @@ public:
     int typeRank;
     Cashier* cashier;
     double totalServiceTime = 0;
+    //enum type eventType;
+    
     Event(long _arrival, long _sd){
         arrivalTime = _arrival;
         nextOccurance = _arrival;
         serviceDuration = _sd;
         type = "Arrive";
+        //eventType = Arrive;
         cashier = nullptr;
         typeRank = 0;
-        
     }
+    
     Event(long _arrival, long _sd, int _id){
         arrivalTime = _arrival;
         nextOccurance = _arrival;
         serviceDuration = _sd;
         type = "Arrive";
+        //eventType = Arrive;
         id = _id;
         typeRank = 0;
         //remainingServiceDuration = 0;

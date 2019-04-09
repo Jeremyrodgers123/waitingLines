@@ -29,6 +29,10 @@ public:
         {new Cashier(), new Cashier(),new Cashier(),new Cashier(), new Cashier(), new Cashier()};
     }
     
+    //essentially an abstract class which will allow different implementations in derived classes 
+    virtual void nextEvent() = 0;
+    
+    
     static bool compareEvents(Event e1, Event e2)
     {
         if(e1.elapsedWaitTime != e2.elapsedWaitTime){
