@@ -28,7 +28,7 @@ public:
         serviceQ = std::deque<Event*> ();
     };
     
-    void nextEvent(){
+    void nextEvent() override {
         Event *current = eventQ.top();
         //assert(current -> serviceDuration != 0);
         //std::cout << current->type <<": " <<current-> arrivalTime << std::endl;
@@ -61,7 +61,7 @@ public:
             }
             //add BegService event
         }else if(current->type == "Servicing"){
-            
+
             //if I don't already have a cashier, find one that is avaialable
             Cashier *cashier = availableCashier();
             if(cashier == nullptr){
@@ -73,7 +73,7 @@ public:
             assert(current ->endService  == 0);
             cashier->helpCustomer(current);
             current -> cashier = cashier;
-            
+
             eventQ.pop();
             calcEndServiceTime(current);
             current -> type = "Finishing";
@@ -85,7 +85,7 @@ public:
             current->calcTotalServiceTime();
             processedCustomers.push_back(*current);
             eventQ.pop();
-            
+
             current->cashier-> finishCustomer();
             currentCustomers -= 1;
             if(serviceQ.empty()){
@@ -101,6 +101,11 @@ public:
         }
     }
     
+    
+    
+    
+    
+    
     void openForBusiness(long maxDuration){
         int count = 0;
         while(!(eventQ.empty())){
@@ -113,5 +118,6 @@ public:
     }
     
 };
+
 
 #endif /* Bank_hpp */

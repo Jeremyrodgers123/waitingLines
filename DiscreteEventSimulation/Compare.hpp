@@ -14,13 +14,13 @@
 class Compare
 {
 public:
-    bool operator() (const Event* a, const Event* b)
-    {
+    bool operator() (const Event* a, const Event* b){
+        
         if(a->nextOccurance != b-> nextOccurance){
             return a->nextOccurance > b->nextOccurance;
         }else{
-            if(a->typeRank != b ->typeRank){
-                  return a->typeRank < b ->typeRank;
+            if(a->typeRank != b->typeRank){
+                  return a->typeRank < b->typeRank;
             }
             return a-> id > b->id;
         }

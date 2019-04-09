@@ -72,35 +72,22 @@ int main(int argc, const char * argv[]) {
     maxServiceDur *= 60; //convert to seconds
     unsigned int randSeed = atoi(argv[3]);
     srand(randSeed);
-    int simulationDuration = 12 * 60 * 60;
-    //std::cout << "sim secs " <<simulationDuration<< std::endl;
+    int simulationDuration = 12 * 60 * 60; //total seconds in a 12 hour day
     long arrivalCount = calcNumberOfArrivals(arrivalRate);
     auto bankEvents = std::priority_queue<Event *, std::vector<Event *>, Compare> ();
     createEvents(bankEvents,simulationDuration, arrivalCount, maxServiceDur);
     Bank bank = Bank(bankEvents);
-    //testPriorityQ(bank.eventQ);
     bank.openForBusiness(simulationDuration);
-    //std::cout << "bank service times in minutes: " << std::endl;
-    //bank.getStats();
-    //bank.get90PerStats();
-    //std::cout << std::endl;
-//    std::ofstream bankfile;
-//    bank.sortProcessedCustomers();
-//    writeToFile(bankfile, "bank.txt", bank.processedCustomers);
-  
     
     srand(randSeed);
     auto supermarketEvents = std::priority_queue<Event *, std::vector<Event *>, Compare> ();
     createEvents(supermarketEvents, simulationDuration, arrivalCount, maxServiceDur);
-    //print_queue(supermarketEvents);
     Supermarket supermarket = Supermarket(supermarketEvents);
     supermarket.openForBusiness(simulationDuration);
-    //std::cout << "supermarket service times in minutes: " << std::endl;
-    //supermarket.getStats();
     supermarket.get90PerStats();
-        std::ofstream supermarketfile;
-         supermarket.sortProcessedCustomers();
-        writeToFile(supermarketfile, "supermarket.txt", supermarket.processedCustomers);
+    std::ofstream supermarketfile;
+    supermarket.sortProcessedCustomers();
+    writeToFile(supermarketfile, "supermarket.txt", supermarket.processedCustomers);
 
     return 0;
 }

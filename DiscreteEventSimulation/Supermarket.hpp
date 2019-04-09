@@ -25,7 +25,7 @@ public:
     };
     
     
-    void nextEvent(){
+    void nextEvent() override {
         Event *current = eventQ.top();
         if(current->type == "Arrive"){
             assert(getExpectedCustomers() == currentCustomers);
@@ -43,8 +43,8 @@ public:
                 calcBeginService(cashier, current);
                 assert(cashier->line.back()-> endService == current->beginService);
                 cashier->line.push_back(current);
-                
-                current -> queueLen = cashier->line.size();
+
+                current->queueLen = cashier->line.size();
                 current->type = "Servicing";
                 eventQ.push(current);
 //                serviceQ.push_back(current);
@@ -54,7 +54,7 @@ public:
                 assert(expectedMin < 1);
                 Cashier* cashier = getCahierWithMinQueue();
                 current->cashier = cashier;
-                current -> queueLen = 1;
+                current->queueLen = 1;
                 cashier->line.push_back(current);
                 current->elapsedWaitTime = 0;
                 current-> beginService = currentTime;
@@ -71,7 +71,7 @@ public:
             }
             currentTime = current->beginService;
             cashier->helpCustomer(current);
-            
+
             eventQ.pop();
             calcEndServiceTime(current);
             current -> type = "Finishing";
@@ -81,7 +81,7 @@ public:
             assert(current -> endService >= currentTime);
             currentTime = current -> endService;
             current->calcTotalServiceTime();
-            
+
             eventQ.pop();
             current-> cashier->line.pop_front();
             current -> queueLen -= 1;
@@ -98,6 +98,11 @@ public:
             exit(1);
         }
     }
+    
+    
+    
+    
+    
     
     void openForBusiness(long maxDuration){
         int count = 0;
